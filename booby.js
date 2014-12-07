@@ -34,6 +34,7 @@ var Booby = new function() {
 
     document.onclick = function(event) {
       scaleFactor += 20;
+      playSound();
       sizeWorld();
     }
 
@@ -921,10 +922,12 @@ var Booby = new function() {
 
       if (boingPos.x < img.width || boingPos.x >= canvas.width) {
         boingVel.x *= -1;
+        playSound();
       }
 
       if (boingPos.y < img.height || boingPos.y > canvas.height) {
         boingVel.y *= -1;
+        playSound();
       }
 
       context.drawImage(img, boingPos.x - img.width, boingPos.y - img.height)
@@ -1257,6 +1260,11 @@ var Booby = new function() {
     context.fillStyle = style;
     context.fill();
     context.restore();
+  }
+
+  function playSound() {
+    audio = new Audio('boing.wav');
+    audio.play();
   }
 }
 
