@@ -653,8 +653,6 @@ var Booby = new function() {
     this.joints = new Array();
     this.middlePointMass;
     this.radius = radius;
-    this.drawFaceStyle = 1;
-    this.drawEyeStyle = 1;
     this.selected = false;
 
     numPointMasses = 8;
@@ -882,11 +880,60 @@ var Booby = new function() {
       drawEllipseWithBezier(cx, cy, w, h, "rgba(0,0,0, 0.2)")
     }
 
+    this.drawNipple = function(ctx, scaleFactor)
+    {
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = "#EF96A0";
+      ctx.fillStyle = "#EF96A0";
+      ctx.beginPath();
+      ctx.arc(0, (this.radius * scaleFactor/3), this.radius * 0.4 * scaleFactor, 0, 2.0 * Math.PI, false);
+      ctx.shadowColor = "rgba(187, 189, 192, 0.6)";
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 1;
+      ctx.fill();
+
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = "#EC708E";
+      ctx.fillStyle = "#EC708E";
+      ctx.beginPath();
+      ctx.arc(0, (this.radius * scaleFactor/3), this.radius * 0.14 * scaleFactor, 0, 2.0 * Math.PI, false);
+      ctx.shadowColor = "rgba(187, 189, 192, 0.6)";
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 1;
+      ctx.fill();
+    }
+
+    var boingPos, boingVel;
+    boingPos = {
+      x: 500,
+      y: 200
+    };
+    boingVel = {
+      x: 10,
+      y: 10
+    };
+
+    this.drawBoing = function() {
+      img = new Image;
+      img.src = 'http://localhost:8888/boing_pink.png';
+      boingPos.x += boingVel.x;
+      boingPos.y += boingVel.y;
+
+      if (boingPos.x < img.width || boingPos.x >= canvas.width) {
+        boingVel.x *= -1;
+      }
+
+      if (boingPos.y < img.height || boingPos.y > canvas.height) {
+        boingVel.y *= -1;
+      }
+
+      context.drawImage(img, boingPos.x - img.width, boingPos.y - img.height)
+    };
+
     this.draw = function(context, scaleFactor)
     {
       var i;
       var up, ori, ang;
-
 
       this.drawShadow();
 
@@ -913,6 +960,12 @@ var Booby = new function() {
         context.rotate(ang);
       }
 
+      this.drawNipple(context, scaleFactor);
+
+      context.restore();
+
+      context.save();
+      this.drawBoing();
       context.restore();
     }
   }
