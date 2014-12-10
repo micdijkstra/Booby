@@ -916,7 +916,7 @@ var Booby = new function() {
 
     this.drawBoing = function() {
       img = new Image;
-      img.src = 'http://localhost:8888/boing_pink.png';
+      img.src = 'http://dijkstra.io/Booby/boing_pink.png';
       boingPos.x += boingVel.x;
       boingPos.y += boingVel.y;
 
