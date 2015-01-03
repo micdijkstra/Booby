@@ -1,0 +1,71 @@
+#overlay {
+  display: none;
+}
+
+#nav {
+  display: none;
+}
+
+#nav a {
+  background-size: 22px 64px;
+  height: 64px;
+  position: absolute;
+  text-indent: -9999px;
+  top: 15px;
+  width: 22px;
+}
+
+#nav-home {
+  background-image: url('booby_vertical.png');
+  left: 15px;
+}
+
+#nav-about {
+  background-image: url('about_vertical.png');
+  right: 15px;
+}
+
+.invert #nav-home {
+  background-image: url('booby_vertical_invert.png');
+}
+
+.invert #nav-about {
+  background-image: url('about_vertical_invert.png');
+}
+
+#signature {
+  display: none;
+}
+
+#signature a {
+  position: absolute;
+  text-indent: -9999px;
+}
+
+#signature-title {
+  background-image: url('signature.png');
+  background-size: 213px 32px;
+  bottom: 40px;
+  height: 32px;
+  left: 50%;
+  margin-left: -107px;
+  width: 213px;
+}
+
+#signature-designer {
+  background-image: url('designer.png');
+  background-size: 158px 11px;
+  bottom: 15px;
+  height: 11px;
+  left: 15px;
+  width: 158px;
+}
+
+#signature-developer {
+  background-image: url('developer.png');
+  background-size: 148px 11px;
+  bottom: 15px;
+  height: 11px;
+  right: 15px;
+  width: 148px;
+}

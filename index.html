@@ -10,11 +10,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>
   </head>
   <body>
-  <div>
-  <canvas id="booby"></canvas>
-  <script type="text/javascript" src="booby.js"></script>
-  </div>
+    <canvas id="overlay"></canvas>
+    <canvas id="booby"></canvas>
+
+    <div id="nav">
+      <a href="/" id="nav-home">Booby</a>
+      <a href="/" id="nav-about">About</a>
+    </div>
+
+    <div id="signature">
+      <a href="#" id="signature-title">Have fun!</a>
+      <a href="http://wadejeffree.com" id="signature-designer">Concept/Design by Wade Jeffree</a>
+      <a href="http://dijkstra.io" id="signature-developer">Developed by Michael Dijkstra</a>
+    </div>
+
+    <script type="text/javascript" src="booby.js"></script>
+    <script type="text/javascript" src="scripts.js"></script>
   </body>
 </html>

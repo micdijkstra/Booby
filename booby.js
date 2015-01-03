@@ -11,6 +11,14 @@ var Booby = new function() {
   var savedMouseCoords = null;
   var selectOffset = null;
 
+  var boing1;
+  var boing2;
+  var boing3;
+
+  var fullscreen = false;
+
+  var boingSound = new Audio('boing.wav');
+
   this.init = function() {
     canvas = document.getElementById( 'booby' );
     context = canvas.getContext('2d');
@@ -26,18 +34,36 @@ var Booby = new function() {
 
     sizeWorld();
 
+    setTimeout(function(){ boingSound.play(); }, 200);
+
     this.timeout();
+
+    setupBoing();
   }
 
   function initEvents() {
     window.addEventListener('resize', sizeWorld, false);
 
-    document.onclick = function(event) {
-      scaleFactor += 20;
-      playSound();
+    $('#booby').click(function(event) {
       sizeWorld();
-    }
+    });
 
+    $('#nav-home').click(function(event) {
+      $('#signature').fadeOut();
+      $('#nav').removeClass('invert');
+      fullscreen = false;
+      scaleFactor = 400.0;
+      sizeWorld();
+      return false;
+    });
+
+    $('#nav-about').click(function(event) {
+      $('#signature').fadeIn();
+      $('#nav').addClass('invert');
+      fullscreen = true;
+      sizeWorld();
+      return false;
+    });
 
     document.onkeydown = function(event)
     {
@@ -111,7 +137,7 @@ var Booby = new function() {
       return null;
     }
 
-    document.onmousedown = function(event)
+    $( "#booby" ).mousedown(function(event)
     {
       var mouseCoords;
 
@@ -125,7 +151,12 @@ var Booby = new function() {
         return;
       }
       selectOffset = boob.selectBlob(mouseCoords.x, mouseCoords.y);
-    }
+
+      if (selectOffset == null) {
+        scaleFactor += 20;
+        boingSound.play();
+      }
+    });
 
     document.onmouseup = function(event)
     {
@@ -134,7 +165,7 @@ var Booby = new function() {
       selectOffset = null;
     }
 
-    document.onmousemove = function(event)
+    $( "#booby" ).mousemove(function(event)
     {
       var mouseCoords;
 
@@ -154,7 +185,7 @@ var Booby = new function() {
       boob.selectedBlobMoveTo(mouseCoords.x - selectOffset.x, mouseCoords.y - selectOffset.y);
 
       savedMouseCoords = mouseCoords;
-    }
+    });
   }
 
   function setScaleFactor() {
@@ -178,10 +209,64 @@ var Booby = new function() {
     canvas.style.left = 0
     canvas.style.top = 0
 
-    context.fillStyle = "#322d7a";
+    if (fullscreen) {
+      context.fillStyle = "#f1a8a9";
+    } else {
+      context.fillStyle = "#322d7a";
+    }
     context.fillRect(0, 0, worldRect.width, worldRect.height);
 
     environment.setEnvironment();
+  }
+
+  function setupBoing() {
+    img = new Image;
+    img.src = 'http://dijkstra.io/Booby/boing1.png';
+
+    boing1 = {
+      img: img,
+      sound: new Audio('boing.wav'),
+      pos: {
+        x: null,
+        y: null
+      },
+      vel: {
+        x: 8,
+        y: 8
+      }
+    };
+
+    img = new Image;
+    img.src = 'http://dijkstra.io/Booby/boing2.png';
+
+    boing2 = {
+      img: img,
+      sound: new Audio('boing.wav'),
+      pos: {
+        x: null,
+        y: null
+      },
+      vel: {
+        x: 10,
+        y: 10
+      }
+    };
+
+    img = new Image;
+    img.src = 'http://dijkstra.io/Booby/boing3.png';
+
+    boing3 = {
+      img: img,
+      sound: new Audio('boing.wav'),
+      pos: {
+        x: null,
+        y: null
+      },
+      vel: {
+        x: 12,
+        y: 12
+      }
+    };
   }
 
   function Vector(x, y)
@@ -270,16 +355,22 @@ var Booby = new function() {
       {
         curPos.setX(this.left);
         collide = true;
+        boingSound.play();
+        boob.unselectBlob();
       }
       else if(curPos.getX() > this.right)
       {
         curPos.setX(this.right);
         collide = true;
+        boingSound.play();
+        boob.unselectBlob();
       }
       if(curPos.getY() < this.top)
       {
         curPos.setY(this.top);
         collide = true;
+        boingSound.play();
+        boob.unselectBlob();
       }
       else if(curPos.getY() > this.bottom)
       {
@@ -687,7 +778,7 @@ var Booby = new function() {
     for(i = 0, p = 0; i < numPointMasses; i++)
     {
       this.joints[p++] = new Joint(this.pointMasses[i], this.pointMasses[clampIndex(i + numPointMasses / 2 + 1, numPointMasses)], low, high);
-      this.joints[p++] = new Joint(this.pointMasses[i], this.middlePointMass, high * 0.9, low * 1.1); // 0.8, 1.2 works
+      this.joints[p++] = new Joint(this.pointMasses[i], this.middlePointMass, high * 0.95, low * 1.05); // 0.8, 1.2 works
     }
 
     this.addBlob = function(blob)
@@ -820,6 +911,7 @@ var Booby = new function() {
       index = index % this.pointMasses.length;
       return this.pointMasses[index];
     }
+
     this.drawBody = function(context, scaleFactor)
     {
       var i;
@@ -887,7 +979,7 @@ var Booby = new function() {
       ctx.strokeStyle = "#EF96A0";
       ctx.fillStyle = "#EF96A0";
       ctx.beginPath();
-      ctx.arc(0, (this.radius * scaleFactor/3), this.radius * 0.4 * scaleFactor, 0, 2.0 * Math.PI, false);
+      ctx.arc(0, 0, this.radius * 0.4 * scaleFactor, 0, 2.0 * Math.PI, false);
       ctx.shadowColor = "rgba(187, 189, 192, 0.6)";
       ctx.shadowOffsetX = 0;
       ctx.shadowOffsetY = 1;
@@ -897,40 +989,50 @@ var Booby = new function() {
       ctx.strokeStyle = "#EC708E";
       ctx.fillStyle = "#EC708E";
       ctx.beginPath();
-      ctx.arc(0, (this.radius * scaleFactor/3), this.radius * 0.14 * scaleFactor, 0, 2.0 * Math.PI, false);
+      ctx.arc(0, 0, this.radius * 0.14 * scaleFactor, 0, 2.0 * Math.PI, false);
       ctx.shadowColor = "rgba(187, 189, 192, 0.6)";
       ctx.shadowOffsetX = 0;
       ctx.shadowOffsetY = 1;
       ctx.fill();
     }
 
-    var boingPos, boingVel;
-    boingPos = {
-      x: 500,
-      y: 200
-    };
-    boingVel = {
-      x: 10,
-      y: 10
-    };
+    this.drawBoing = function(boing) {
+      img = boing['img'];
+      boingPos = boing['pos'];
+      boingVel = boing['vel'];
+      boingSound = boing['sound'];
 
-    this.drawBoing = function() {
-      img = new Image;
-      img.src = 'http://dijkstra.io/Booby/boing_pink.png';
-      boingPos.x += boingVel.x;
-      boingPos.y += boingVel.y;
+      if ($(window).width() >= 768) {
+        imgHeight = img.height/2;
+        imgWidth = img.width/2;
+      } else {
+        imgHeight = img.height/4;
+        imgWidth = img.width/4;
+      }
 
-      if (boingPos.x < img.width || boingPos.x >= canvas.width) {
+      if (boingPos.x == null) {
+        boingPos.x = Math.floor(Math.random() * (canvas.width - imgWidth * 2)) + (imgWidth * 2);
+      } else {
+        boingPos.x += boingVel.x;
+      }
+
+      if (boingPos.y == null) {
+        boingPos.y = Math.floor(Math.random() * (canvas.height - imgHeight * 2)) + (imgHeight * 2);
+      } else {
+        boingPos.y += boingVel.y;
+      }
+
+      if (boingPos.x < imgWidth || boingPos.x >= canvas.width) {
         boingVel.x *= -1;
-        playSound();
+        boingSound.play();
       }
 
-      if (boingPos.y < img.height || boingPos.y > canvas.height) {
+      if (boingPos.y < imgHeight || boingPos.y > canvas.height) {
         boingVel.y *= -1;
-        playSound();
+        boingSound.play();
       }
 
-      context.drawImage(img, boingPos.x - img.width, boingPos.y - img.height)
+      context.drawImage(img, boingPos.x - imgWidth, boingPos.y - imgHeight, imgWidth, imgHeight)
     };
 
     this.draw = function(context, scaleFactor)
@@ -938,16 +1040,23 @@ var Booby = new function() {
       var i;
       var up, ori, ang;
 
-      this.drawShadow();
+     if (!fullscreen) {
+        this.drawShadow();
 
-      this.drawBody(context, scaleFactor);
+        this.drawBody(context, scaleFactor);
+      }
 
       context.strokeStyle = "#000000";
       context.fillStyle = "#000000"
 
       context.save();
-      context.translate(this.middlePointMass.getXPos() * scaleFactor,
-        (this.middlePointMass.getYPos() - 0.35 * this.radius) * scaleFactor);
+
+      if (fullscreen) {
+        context.translate($(window).width()/2, $(window).height()/2)
+      } else {
+        context.translate(this.middlePointMass.getXPos() * scaleFactor,
+          (this.middlePointMass.getYPos()) * scaleFactor);
+      }
 
       up = new Vector(0.0, -1.0);
       ori = new Vector(0.0, 0.0);
@@ -967,8 +1076,13 @@ var Booby = new function() {
 
       context.restore();
 
+      if (fullscreen) {
+        this.drawBoing(boing1);
+        this.drawBoing(boing2);
+        this.drawBoing(boing3);
+      }
+
       context.save();
-      this.drawBoing();
       context.restore();
     }
   }
@@ -1225,7 +1339,11 @@ var Booby = new function() {
       return;
     }
 
-    context.fillStyle = "#322d7a";
+    if (fullscreen) {
+      context.fillStyle = "#f1a8a9";
+    } else {
+      context.fillStyle = "#322d7a";
+    }
     context.fillRect(worldRect.x, worldRect.y, worldRect.width, worldRect.height);
 
     boob.draw(context, scaleFactor);
@@ -1260,11 +1378,6 @@ var Booby = new function() {
     context.fillStyle = style;
     context.fill();
     context.restore();
-  }
-
-  function playSound() {
-    audio = new Audio('boing.wav');
-    audio.play();
   }
 }
 
