@@ -1107,8 +1107,6 @@ var Booby = new function() {
 
       if (fullscreen) {
         this.drawBoing(boing1);
-        this.drawBoing(boing2);
-        this.drawBoing(boing3);
       }
 
       context.save();
