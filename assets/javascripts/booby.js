@@ -54,7 +54,7 @@ var Booby = new function() {
       $('#signature').fadeOut();
       $('#nav').removeClass('invert');
       fullscreen = false;
-      scaleFactor = 400.0;
+      setScaleFactor();
       sizeWorld();
       return false;
     });
@@ -166,6 +166,24 @@ var Booby = new function() {
       }
     });
 
+    $('#booby').on( "gesturestart gestureend", function(event)
+    {
+      event.preventDefault();
+    });
+
+    $('#booby').on( "gesturechange", function(event)
+    {
+      event.preventDefault();
+
+      if (event.originalEvent.scale < 1.0) {
+        scaleFactor -= 1;
+      } else {
+        scaleFactor += 1;
+      }
+
+      sizeWorld();
+    });
+
     $('#booby').on( "mouseup touchend", function(event)
     {
       event.preventDefault();
@@ -201,7 +219,7 @@ var Booby = new function() {
   function setScaleFactor() {
     if (window.innerWidth > 1200) {
       scaleFactor = 400;
-    } else if (window.innerWidth > 780) {
+    } else if (window.innerWidth > 640) {
       scaleFactor = 300;
     } else {
       scaleFactor = 200;
