@@ -1,4 +1,5 @@
 var Booby = new function() {
+  var assetPath = 'http://dijkstra.io/Booby/assets';
   var worldRect = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
   var canvas;
   var context;
@@ -17,7 +18,7 @@ var Booby = new function() {
 
   var fullscreen = false;
 
-  var boingSound = new Audio('../audio/boing.wav');
+  var boingSound = new Audio(assetPath + '/audio/boing.wav');
 
   this.init = function() {
     canvas = document.getElementById( 'booby' );
@@ -230,11 +231,11 @@ var Booby = new function() {
 
   function setupBoing() {
     img = new Image;
-    img.src = '../images/boing1.png';
+    img.src = assetPath + '/images/boing1.png';
 
     boing1 = {
       img: img,
-      sound: new Audio('../audio/boing.wav'),
+      sound: new Audio(assetPath + '/audio/boing.wav'),
       pos: {
         x: null,
         y: null
@@ -246,11 +247,11 @@ var Booby = new function() {
     };
 
     img = new Image;
-    img.src = '../images/boing2.png';
+    img.src = assetPath + '/images/boing2.png';
 
     boing2 = {
       img: img,
-      sound: new Audio('../audio/boing.wav'),
+      sound: new Audio(assetPath + '/audio/boing.wav'),
       pos: {
         x: null,
         y: null
@@ -262,11 +263,11 @@ var Booby = new function() {
     };
 
     img = new Image;
-    img.src = '../images/boing3.png';
+    img.src = assetPath + '/images/boing3.png';
 
     boing3 = {
       img: img,
-      sound: new Audio('../audio/boing.wav'),
+      sound: new Audio(assetPath + '/audio/boing.wav'),
       pos: {
         x: null,
         y: null
