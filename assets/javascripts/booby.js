@@ -17,7 +17,7 @@ var Booby = new function() {
 
   var fullscreen = false;
 
-  var boingSound = new Audio('boing.wav');
+  var boingSound = new Audio('../audio/boing.wav');
 
   this.init = function() {
     canvas = document.getElementById( 'booby' );
@@ -35,6 +35,7 @@ var Booby = new function() {
     sizeWorld();
 
     setTimeout(function(){ boingSound.play(); }, 200);
+    setTimeout(function(){ $('#nav').fadeIn(); }, 500);
 
     this.timeout();
 
@@ -132,8 +133,8 @@ var Booby = new function() {
         return null;
       }
 
-      if (event.type == 'touchstart') {
-        return {x:event.originalEvent.touches[0].pageX / scaleFactor, y: event.originalEvent.touches[0].pageY / scaleFactor};
+      if (event.type == 'touchstart' || event.type == 'touchmove') {
+        event = event.originalEvent.touches[0];
       }
 
       if(event.pageX || event.pageY){
@@ -158,7 +159,7 @@ var Booby = new function() {
       }
       selectOffset = boob.selectBlob(mouseCoords.x, mouseCoords.y);
 
-      if (selectOffset == null) {
+      if (selectOffset == null && event.type == 'mousedown') {
         scaleFactor += 20;
         boingSound.play();
       }
@@ -166,6 +167,7 @@ var Booby = new function() {
 
     $('#booby').on( "mouseup touchend", function(event)
     {
+      event.preventDefault();
       boob.unselectBlob();
       savedMouseCoords = null;
       selectOffset = null;
@@ -173,6 +175,7 @@ var Booby = new function() {
 
     $('#booby').on( "mousemove touchmove", function(event)
     {
+      event.preventDefault();
       var mouseCoords;
 
       if(stopped == true)
@@ -205,15 +208,15 @@ var Booby = new function() {
   }
 
   function sizeWorld() {
-    worldRect.width = window.innerWidth;
-    worldRect.height = window.innerHeight;
+    worldRect.width = $(window).width();
+    worldRect.height = $(window).height();
 
     canvas.width = worldRect.width;
     canvas.height = worldRect.height;
 
     canvas.style.position = 'absolute';
-    canvas.style.left = 0
-    canvas.style.top = 0
+    canvas.style.left = 0;
+    canvas.style.top = 0;
 
     if (fullscreen) {
       context.fillStyle = "#f1a8a9";
@@ -227,11 +230,11 @@ var Booby = new function() {
 
   function setupBoing() {
     img = new Image;
-    img.src = 'http://dijkstra.io/Booby/boing1.png';
+    img.src = '../images/boing1.png';
 
     boing1 = {
       img: img,
-      sound: new Audio('boing.wav'),
+      sound: new Audio('../audio/boing.wav'),
       pos: {
         x: null,
         y: null
@@ -243,11 +246,11 @@ var Booby = new function() {
     };
 
     img = new Image;
-    img.src = 'http://dijkstra.io/Booby/boing2.png';
+    img.src = '../images/boing2.png';
 
     boing2 = {
       img: img,
-      sound: new Audio('boing.wav'),
+      sound: new Audio('../audio/boing.wav'),
       pos: {
         x: null,
         y: null
@@ -259,11 +262,11 @@ var Booby = new function() {
     };
 
     img = new Image;
-    img.src = 'http://dijkstra.io/Booby/boing3.png';
+    img.src = '../images/boing3.png';
 
     boing3 = {
       img: img,
-      sound: new Audio('boing.wav'),
+      sound: new Audio('../audio/boing.wav'),
       pos: {
         x: null,
         y: null

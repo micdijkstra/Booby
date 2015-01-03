@@ -16,21 +16,21 @@
 }
 
 #nav-home {
-  background-image: url('booby_vertical.png');
+  background-image: url('../images/booby_vertical.png');
   left: 15px;
 }
 
 #nav-about {
-  background-image: url('about_vertical.png');
+  background-image: url('../images/about_vertical.png');
   right: 15px;
 }
 
 .invert #nav-home {
-  background-image: url('booby_vertical_invert.png');
+  background-image: url('../images/booby_vertical_invert.png');
 }
 
 .invert #nav-about {
-  background-image: url('about_vertical_invert.png');
+  background-image: url('../images/about_vertical_invert.png');
 }
 
 #signature {
@@ -43,7 +43,7 @@
 }
 
 #signature-title {
-  background-image: url('signature.png');
+  background-image: url('../images/signature.png');
   background-size: 213px 32px;
   bottom: 40px;
   height: 32px;
@@ -53,7 +53,7 @@
 }
 
 #signature-designer {
-  background-image: url('designer.png');
+  background-image: url('../images/designer.png');
   background-size: 158px 11px;
   bottom: 15px;
   height: 11px;
@@ -62,7 +62,7 @@
 }
 
 #signature-developer {
-  background-image: url('developer.png');
+  background-image: url('../images/developer.png');
   background-size: 148px 11px;
   bottom: 15px;
   height: 11px;
