@@ -181,7 +181,8 @@ var Booby = new function() {
         scaleFactor += 1;
       }
 
-      sizeWorld();
+      clearTimeout(this.id);
+      this.id = setTimeout(sizeWorld, 100);
     });
 
     $('#booby').on( "mouseup touchend", function(event)
