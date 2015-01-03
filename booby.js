@@ -131,14 +131,20 @@ var Booby = new function() {
       {
         return null;
       }
+
+      if (event.type == 'touchstart') {
+        return {x:event.originalEvent.touches[0].pageX / scaleFactor, y: event.originalEvent.touches[0].pageY / scaleFactor};
+      }
+
       if(event.pageX || event.pageY){
         return {x:event.pageX / scaleFactor, y:event.pageY / scaleFactor};
       }
       return null;
     }
 
-    $( "#booby" ).mousedown(function(event)
+    $('#booby').on( "mousedown touchstart", function(event)
     {
+      event.preventDefault();
       var mouseCoords;
 
       if(stopped == true)
@@ -158,14 +164,14 @@ var Booby = new function() {
       }
     });
 
-    document.onmouseup = function(event)
+    $('#booby').on( "mouseup touchend", function(event)
     {
       boob.unselectBlob();
       savedMouseCoords = null;
       selectOffset = null;
-    }
+    });
 
-    $( "#booby" ).mousemove(function(event)
+    $('#booby').on( "mousemove touchmove", function(event)
     {
       var mouseCoords;
 
