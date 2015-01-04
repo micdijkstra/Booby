@@ -13,8 +13,6 @@ var Booby = new function() {
   var selectOffset = null;
 
   var boing1;
-  var boing2;
-  var boing3;
 
   var fullscreen = false;
 
@@ -262,38 +260,6 @@ var Booby = new function() {
       vel: {
         x: 8,
         y: 8
-      }
-    };
-
-    img = new Image;
-    img.src = assetPath + '/images/boing2.png';
-
-    boing2 = {
-      img: img,
-      sound: new Audio(assetPath + '/audio/boing.mp3'),
-      pos: {
-        x: null,
-        y: null
-      },
-      vel: {
-        x: 10,
-        y: 10
-      }
-    };
-
-    img = new Image;
-    img.src = assetPath + '/images/boing3.png';
-
-    boing3 = {
-      img: img,
-      sound: new Audio(assetPath + '/audio/boing.mp3'),
-      pos: {
-        x: null,
-        y: null
-      },
-      vel: {
-        x: 12,
-        y: 12
       }
     };
   }
@@ -1408,4 +1374,6 @@ var Booby = new function() {
   }
 }
 
-Booby.init();
+$( document ).ready(function() {
+  Booby.init();
+});
