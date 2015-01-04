@@ -69,3 +69,20 @@
   right: 15px;
   width: 148px;
 }
+
+@media screen and (max-width: 600px) {
+  #signature-title {
+    bottom: 60px;
+  }
+
+  #signature-designer {
+    bottom: 35px;
+    left: 50%;
+    margin-left: -79px;
+  }
+
+  #signature-developer {
+    right: 50%;
+    margin-right: -74px;
+  }
+}

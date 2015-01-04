@@ -1040,13 +1040,13 @@ var Booby = new function() {
       }
 
       if (boingPos.x == null) {
-        boingPos.x = Math.floor(Math.random() * (canvas.width - imgWidth * 2)) + (imgWidth * 2);
+        boingPos.x = imgWidth + 10
       } else {
         boingPos.x += boingVel.x;
       }
 
       if (boingPos.y == null) {
-        boingPos.y = Math.floor(Math.random() * (canvas.height - imgHeight * 2)) + (imgHeight * 2);
+        boingPos.y = imgHeight + 10
       } else {
         boingPos.y += boingVel.y;
       }
