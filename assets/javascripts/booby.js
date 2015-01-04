@@ -18,7 +18,7 @@ var Booby = new function() {
 
   var fullscreen = false;
 
-  var boingSound = new Audio(assetPath + '/audio/boing.wav');
+  var boingSound = new Audio(assetPath + '/audio/boing.mp3');
 
   this.init = function() {
     canvas = document.getElementById( 'booby' );
@@ -254,7 +254,7 @@ var Booby = new function() {
 
     boing1 = {
       img: img,
-      sound: new Audio(assetPath + '/audio/boing.wav'),
+      sound: new Audio(assetPath + '/audio/boing.mp3'),
       pos: {
         x: null,
         y: null
@@ -270,7 +270,7 @@ var Booby = new function() {
 
     boing2 = {
       img: img,
-      sound: new Audio(assetPath + '/audio/boing.wav'),
+      sound: new Audio(assetPath + '/audio/boing.mp3'),
       pos: {
         x: null,
         y: null
@@ -286,7 +286,7 @@ var Booby = new function() {
 
     boing3 = {
       img: img,
-      sound: new Audio(assetPath + '/audio/boing.wav'),
+      sound: new Audio(assetPath + '/audio/boing.mp3'),
       pos: {
         x: null,
         y: null
@@ -1040,13 +1040,13 @@ var Booby = new function() {
       }
 
       if (boingPos.x == null) {
-        boingPos.x = imgWidth + 10
+        boingPos.x = $(window).width() - imgWidth / 2;
       } else {
         boingPos.x += boingVel.x;
       }
 
       if (boingPos.y == null) {
-        boingPos.y = imgHeight + 10
+        boingPos.y = $(window).height() - imgHeight / 2;
       } else {
         boingPos.y += boingVel.y;
       }
