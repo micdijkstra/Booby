@@ -13,6 +13,8 @@ var Booby = new function() {
   var selectOffset = null;
 
   var boing1;
+  var boing2;
+  var boing3;
 
   var fullscreen = false;
 
@@ -260,6 +262,38 @@ var Booby = new function() {
       vel: {
         x: 8,
         y: 8
+      }
+    };
+
+    img = new Image;
+    img.src = assetPath + '/images/boing2.png';
+
+    boing2 = {
+      img: img,
+      sound: new Audio(assetPath + '/audio/boing.mp3'),
+      pos: {
+        x: null,
+        y: null
+      },
+      vel: {
+        x: 10,
+        y: 10
+      }
+    };
+
+    img = new Image;
+    img.src = assetPath + '/images/boing3.png';
+
+    boing3 = {
+      img: img,
+      sound: new Audio(assetPath + '/audio/boing.mp3'),
+      pos: {
+        x: null,
+        y: null
+      },
+      vel: {
+        x: 12,
+        y: 12
       }
     };
   }
@@ -773,7 +807,7 @@ var Booby = new function() {
     for(i = 0, p = 0; i < numPointMasses; i++)
     {
       this.joints[p++] = new Joint(this.pointMasses[i], this.pointMasses[clampIndex(i + numPointMasses / 2 + 1, numPointMasses)], low, high);
-      this.joints[p++] = new Joint(this.pointMasses[i], this.middlePointMass, high * 0.95, low * 1.05); // 0.8, 1.2 works
+      this.joints[p++] = new Joint(this.pointMasses[i], this.middlePointMass, high * 0.90, low * 1.05); // 0.8, 1.2 works
     }
 
     this.addBlob = function(blob)
@@ -1007,15 +1041,13 @@ var Booby = new function() {
 
       if (boingPos.x == null) {
         boingPos.x = $(window).width() - imgWidth / 2;
-      } else {
-        boingPos.x += boingVel.x;
       }
+      boingPos.x += boingVel.x;
 
       if (boingPos.y == null) {
         boingPos.y = $(window).height() - imgHeight / 2;
-      } else {
-        boingPos.y += boingVel.y;
       }
+      boingPos.y += boingVel.y;
 
       if (boingPos.x < imgWidth || boingPos.x >= canvas.width) {
         boingVel.x *= -1;
@@ -1073,6 +1105,8 @@ var Booby = new function() {
 
       if (fullscreen) {
         this.drawBoing(boing1);
+        this.drawBoing(boing2);
+        this.drawBoing(boing3);
       }
 
       context.save();
