@@ -219,9 +219,9 @@ var Booby = new function() {
 
   function setScaleFactor() {
     if (window.innerWidth > 1200) {
-      scaleFactor = 400;
+      scaleFactor = 500;
     } else if (window.innerWidth > 640) {
-      scaleFactor = 300;
+      scaleFactor = 350;
     } else {
       scaleFactor = 200;
     }
@@ -993,7 +993,7 @@ var Booby = new function() {
 
     this.drawShadow = function()
     {
-      cy = (worldRect.height - 75);
+      cy = (worldRect.height - 80);
       w = (blobRadius * 2) * scaleFactor;
       cx = (this.middlePointMass.getXPos() * scaleFactor) - (w/2);
       h = 50 * this.middlePointMass.getYPos();
@@ -1009,9 +1009,6 @@ var Booby = new function() {
       ctx.fillStyle = "#EF96A0";
       ctx.beginPath();
       ctx.arc(0, 0, this.radius * 0.4 * scaleFactor, 0, 2.0 * Math.PI, false);
-      ctx.shadowColor = "rgba(187, 189, 192, 0.6)";
-      ctx.shadowOffsetX = 0;
-      ctx.shadowOffsetY = 1;
       ctx.fill();
 
       ctx.lineWidth = 1;
@@ -1019,9 +1016,6 @@ var Booby = new function() {
       ctx.fillStyle = "#EC708E";
       ctx.beginPath();
       ctx.arc(0, 0, this.radius * 0.14 * scaleFactor, 0, 2.0 * Math.PI, false);
-      ctx.shadowColor = "rgba(187, 189, 192, 0.6)";
-      ctx.shadowOffsetX = 0;
-      ctx.shadowOffsetY = 1;
       ctx.fill();
     }
 
