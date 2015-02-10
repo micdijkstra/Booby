@@ -1,12 +1,7 @@
-#overlay {
-  display: none;
-}
-
-#nav {
-  display: none;
-}
-
-#signature {
+#overlay,
+#nav,
+#signature,
+#donate {
   display: none;
 }
 
@@ -85,3 +80,21 @@
   }
 }
 
+
+#donate {
+  bottom: 15px;
+  font-family: Helvetica, Helmut, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 14px;
+  letter-spacing: 0.03em;
+  position: absolute;
+  right: 15px;
+}
+
+#donate a,
+#donate a:hover,
+#donate a:visited {
+  color: #F1A8A9;
+  text-decoration: none;
+}

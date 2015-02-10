@@ -36,7 +36,7 @@ var Booby = new function() {
     sizeWorld();
 
     setTimeout(function(){ boingSound.play(); }, 200);
-    setTimeout(function(){ $('#nav').fadeIn(); }, 500);
+    setTimeout(function(){ $('#nav, #donate').fadeIn(); }, 500);
 
     this.timeout();
 
@@ -51,7 +51,9 @@ var Booby = new function() {
     });
 
     $('#nav-home').click(function(event) {
-      $('#signature').fadeOut();
+      $('#signature').fadeOut(function(){
+        $('#donate').fadeIn();
+      });
       $('#nav').removeClass('invert');
       fullscreen = false;
       setScaleFactor();
@@ -60,7 +62,9 @@ var Booby = new function() {
     });
 
     $('#nav-about').click(function(event) {
-      $('#signature').fadeIn();
+      $('#donate').fadeOut(function(){
+        $('#signature').fadeIn();
+      });
       $('#nav').addClass('invert');
       fullscreen = true;
       sizeWorld();
